@@ -230,14 +230,14 @@ class SamlClient
      * from the SSO.
      * @throws Exceptions\ExceptionInvalidUrl - if the passed $returnToUrl was an invalid URL.
      */
-    public function handleUserLogoutRequest(string $returnToUrl)
+    public function handleUserLogoutRequest(string $returnToUrl, $stay = false)
     {
         if (filter_var($returnToUrl, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED) === false)
         {
             throw new Exceptions\ExceptionInvalidUrl("You need to pass a valid URL to return to.");
         }
 
-        $this->m_auth->logout($returnToUrl);   // Method that sent the AuthNRequest
+        return $this->m_auth->logout($returnToUrl, [], null, null, $stay);   // Method that sent the AuthNRequest
     }
 
 
